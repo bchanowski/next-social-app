@@ -1,0 +1,37 @@
+export const runtime = "nodejs";
+
+import { NextResponse } from "next/server";
+import { connectDB } from "@/lib/db";
+import Post from "@/models/Post";
+import { auth0 } from "@/lib/auth0";
+
+const PAGE_SIZE = 10;
+
+export async function GET(req: Request) {
+  const session = await auth0.getSession();
+  if (!session)
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  await connectDB();
+
+  const { searchParams } = new URL(req.url);
+  const cursor = searchParams.get("cursor");
+
+  const query: any = {};
+  if (cursor) query._id = { $lt: cursor };
+
+  const posts = await Post.find(query)
+    .sort({ _id: -1 })
+    .limit(PAGE_SIZE + 1);
+
+  const hasMore = posts.length > PAGE_SIZE;
+  const sliced = hasMore ? posts.slice(0, PAGE_SIZE) : posts;
+
+  const nextCursor = hasMore ? sliced[sliced.length - 1]._id : null;
+
+  return NextResponse.json({
+    posts: sliced,
+    hasMore,
+    nextCursor,
+  });
+}
