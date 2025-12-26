@@ -1,16 +1,23 @@
-import { auth0 } from "@/lib/auth0";
+import "./login.scss";
 
 export default async function Home() {
-  const session = await auth0.getSession();
-  const user = session?.user;
   return (
-    <div>
-      <h1>
-        You're not logged in! Login or Register to fully experience the site!
-      </h1>
-      <h3>
-        <a href="/auth/login">Login/Register</a>
-      </h3>
+    <div className="login-container">
+      <div className="login-modal">
+        <div className="login-div">
+          <h1 className="login-text">
+            {"Welcome to the Next Social App!"}
+            {<br />}
+            {
+              "You're not logged in. Login or Register to fully experience the site."
+            }
+          </h1>
+          <a href="/auth/login" className="login-btn">
+            Login / Register
+          </a>
+        </div>
+        <p>Login powered by Auth0</p>
+      </div>
     </div>
   );
 }

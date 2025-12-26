@@ -1,6 +1,7 @@
 import { ThemeProvider } from "@/components/ThemeProvider";
 import "../styles/globals.scss";
 import { Auth0Provider } from "@auth0/nextjs-auth0";
+import { raleway, archivo } from "./fonts";
 
 export default function RootLayout({
   children,
@@ -8,7 +9,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${raleway.variable} ${archivo.variable}`}>
       <body>
         <Auth0Provider>
           <ThemeProvider>{children}</ThemeProvider>

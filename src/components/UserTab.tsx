@@ -1,5 +1,6 @@
 import InfoTab from "./InfoTab";
 import UserBlock from "./UserBlock";
+import "../styles/UserTab.scss";
 
 const userTabOptions = [
   "Home",
@@ -12,16 +13,18 @@ const userTabOptions = [
 
 export default async function UserTab() {
   return (
-    <div>
+    <div className="user-tab-container">
       <UserBlock />
       <InfoTab heading="Home Tab">
         {userTabOptions.map((option, index) => (
-          <a key={index} href={"/" + option}>
+          <a key={index} href={"/" + option} className="user-tab-option">
             {option}
           </a>
         ))}
       </InfoTab>
-      <a href="/auth/logout">Logout</a>
+      <a href="/auth/logout" className="logout-btn">
+        Logout
+      </a>
     </div>
   );
 }

@@ -1,0 +1,15 @@
+@use "./variables.scss" as *;
+
+.info-tab-container {
+    background-color: $secondary;
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.info-tab-heading {
+    margin-bottom: 25px;
+}

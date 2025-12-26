@@ -1,6 +1,8 @@
 "use client";
 import { useInfiniteFeed } from "@/lib/useInfiniteFeed";
 import { useEffect, useRef } from "react";
+import "../styles/AllPostsList.scss";
+import FeedPost from "./FeedPost";
 
 export default function AllPostsList() {
   const { posts, load, hasMore, loading } = useInfiniteFeed();
@@ -18,12 +20,9 @@ export default function AllPostsList() {
   }, [hasMore]);
 
   return (
-    <div>
+    <div className="all-posts-container">
       {posts.map((p) => (
-        <div key={p._id}>
-          <h3>{p.title}</h3>
-          <p>{p.description}</p>
-        </div>
+        <FeedPost post={p} key={p._id} />
       ))}
 
       {loading && <p>Loading…</p>}

@@ -1,0 +1,45 @@
+@use "../../../styles/variables.scss" as *;
+
+.login-container {
+    height: 98svh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login-modal {
+    background-color: $primary;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 50%;
+    border: 2px solid $accent;
+}
+
+.login-div {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.login-text {
+    width: 50%;
+}
+
+.login-btn {
+  background-color: $secondary;
+  text-decoration: none;
+  color: #fcfdfd;
+  padding: 35px;
+  border-radius: 10px;
+  transition: all 0.2s ease-out;
+
+  &:hover {
+    font-size: larger;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+

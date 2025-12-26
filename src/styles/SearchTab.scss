@@ -1,0 +1,55 @@
+@use 'variables' as *;
+
+.search-tab-container {
+    padding-top: 20px;
+    width: 20svw;
+    min-width: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.topic-text {
+    text-decoration: underline;
+    margin: 10px;
+    cursor: pointer;
+     transition: all 0.2s ease-out;
+    &:hover {
+        color: $accent;
+    }
+}
+
+.trend-people-container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: start;
+    cursor: pointer;
+     transition: all 0.2s ease-out;
+    &:hover {
+        background-color: $accent;
+        border-radius: 10px;
+    }
+}
+
+.trend-people-text {
+    font-size: small;
+}
+
+.popular-user-img {
+    margin-right: 15px;
+    border-radius: 50px;
+}
+
+.search-input {
+    border: 2px solid $black;
+    border-radius: 5px;
+    width: 80%;
+    font-size: larger;
+    padding: 7px;
+     transition: all 0.2s ease-out;
+    &:focus {
+        border: 2px solid $accent;
+    }
+}
