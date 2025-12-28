@@ -1,8 +1,10 @@
+import { ObjectId } from "mongoose";
+
 export type PostT = {
-  _id: string;
+  _id: ObjectId;
   title: string;
   description: string;
   authorId: string;
   createdAt: Date;
-  editedAt: Date;
+  updatedAt?: Date;
 };

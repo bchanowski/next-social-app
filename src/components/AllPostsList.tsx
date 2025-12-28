@@ -17,12 +17,12 @@ export default function AllPostsList() {
 
     if (loader.current) observer.observe(loader.current);
     return () => observer.disconnect();
-  }, [hasMore]);
+  }, [hasMore, load]);
 
   return (
     <div className="all-posts-container">
       {posts.map((p) => (
-        <FeedPost post={p} key={p._id} />
+        <FeedPost post={p} key={p._id.toString()} />
       ))}
 
       {loading && <p>Loading…</p>}

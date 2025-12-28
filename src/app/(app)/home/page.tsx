@@ -2,23 +2,42 @@
 import AllPostsList from "@/components/AllPostsList";
 import { useState } from "react";
 import "./home.scss";
+import { useUser } from "@auth0/nextjs-auth0";
 
 export default function Home() {
+  const { user } = useUser();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [confirming, setConfirming] = useState(false);
+  const [needsVerification, setNeedsVerification] = useState(false);
+  const [errors, setErrors] = useState({ title: false, desc: false });
+
+  const handlePostAttempt = () => {
+    const titleEmpty = !title.trim();
+    const descEmpty = !description.trim();
+
+    setErrors({ title: titleEmpty, desc: descEmpty });
+
+    if (titleEmpty || descEmpty) return; // Stop here if empty
+    if (user && !user.email_verified) {
+      setNeedsVerification(true);
+    } else {
+      setConfirming(true);
+    }
+  };
 
   async function submit() {
-    await fetch("/api/posts", {
+    const res = await fetch("/api/posts", {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ title, description }),
     });
-
-    setTitle("");
-    setDescription("");
-    setConfirming(false);
+    if (res.ok) {
+      setTitle("");
+      setDescription("");
+      setConfirming(false);
+    }
   }
   return (
     <div className="home-page-container">
@@ -37,7 +56,13 @@ export default function Home() {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-        <button onClick={() => setConfirming(true)} className="add-post-btn">
+        {errors.title && (
+          <span className="error-text">Title cannot be empty</span>
+        )}
+        {errors.desc && (
+          <span className="error-text">Description cannot be empty</span>
+        )}
+        <button onClick={() => handlePostAttempt()} className="add-post-btn">
           Post
         </button>
         {!confirming ? (
@@ -55,6 +80,26 @@ export default function Home() {
                   className="cancel-btn"
                 >
                   Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+        {needsVerification && (
+          <div className="modal-container">
+            <div className="confirm-modal">
+              <h2>Email Verification Required</h2>
+              <p style={{ marginBottom: "20px" }}>
+                You must verify your email address before you can create a post.
+                Please check your inbox.
+              </p>
+              <div className="confirm-buttons-container">
+                <button
+                  onClick={() => setNeedsVerification(false)}
+                  className="confirm-btn"
+                  style={{ width: "100%" }}
+                >
+                  Understood
                 </button>
               </div>
             </div>

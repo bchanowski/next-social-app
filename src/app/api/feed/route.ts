@@ -4,8 +4,11 @@ import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import Post from "@/models/Post";
 import { auth0 } from "@/lib/auth0";
+import { QueryFilter, InferSchemaType, Types } from "mongoose";
 
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 5;
+
+type PostDoc = InferSchemaType<typeof Post.schema>;
 
 export async function GET(req: Request) {
   const session = await auth0.getSession();
@@ -17,8 +20,11 @@ export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const cursor = searchParams.get("cursor");
 
-  const query: any = {};
-  if (cursor) query._id = { $lt: cursor };
+  const query: QueryFilter<PostDoc> = {};
+
+  if (cursor && Types.ObjectId.isValid(cursor)) {
+    query._id = { $lt: new Types.ObjectId(cursor) };
+  }
 
   const posts = await Post.find(query)
     .sort({ _id: -1 })
@@ -27,7 +33,7 @@ export async function GET(req: Request) {
   const hasMore = posts.length > PAGE_SIZE;
   const sliced = hasMore ? posts.slice(0, PAGE_SIZE) : posts;
 
-  const nextCursor = hasMore ? sliced[sliced.length - 1]._id : null;
+  const nextCursor = hasMore ? sliced[sliced.length - 1]._id.toString() : null;
 
   return NextResponse.json({
     posts: sliced,

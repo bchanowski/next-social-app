@@ -10,6 +10,13 @@ export async function POST(req: Request) {
   if (!session)
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
+  if (!session.user.email_verified) {
+    return NextResponse.json(
+      { error: "Email verification required" },
+      { status: 403 }
+    );
+  }
+
   const { title, description } = await req.json();
 
   await connectDB();
