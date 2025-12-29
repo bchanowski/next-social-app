@@ -8,7 +8,7 @@ export async function proxy(request: NextRequest) {
 
   const isPublicRoute =
     request.nextUrl.pathname.startsWith("/login") ||
-    request.nextUrl.pathname.startsWith("/api/auth");
+    request.nextUrl.pathname.startsWith("/auth");
 
   if (!session && !isPublicRoute) {
     return NextResponse.redirect(new URL("/login", request.url));

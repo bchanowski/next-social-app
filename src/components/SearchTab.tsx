@@ -1,7 +1,7 @@
 import InfoTab from "./InfoTab";
 import "../styles/SearchTab.scss";
-import Image from "next/image";
 import { auth0 } from "@/lib/auth0";
+import UserMiniProfile from "./UserMiniProfile";
 const popularTopics = ["React", "Python", "Nextjs", "C++", "AI"];
 
 export default async function SearchTab() {
@@ -19,23 +19,7 @@ export default async function SearchTab() {
       </InfoTab>
       <InfoTab heading="Trending People">
         {popularTopics.map((topic) => (
-          <div key={topic} className="trend-people-container">
-            {user?.picture ? (
-              <Image
-                alt="User's Avatar"
-                src={user.picture}
-                width={30}
-                height={30}
-                className="popular-user-img"
-              />
-            ) : (
-              <></>
-            )}
-            <div className="trend-people-text">
-              <p>Dummy User</p>
-              <p>Engineer</p>
-            </div>
-          </div>
+          <UserMiniProfile key={topic} user={user} />
         ))}
       </InfoTab>
     </div>

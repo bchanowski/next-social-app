@@ -6,7 +6,6 @@ import { auth0 } from "@/lib/auth0";
 
 export async function POST(req: Request) {
   const session = await auth0.getSession();
-  console.log("SESSION:", session);
   if (!session)
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
@@ -26,6 +25,7 @@ export async function POST(req: Request) {
     title,
     description,
     authorId: session.user.sub,
+    topic: "General",
   });
 
   return NextResponse.json(post);

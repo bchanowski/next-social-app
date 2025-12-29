@@ -1,6 +1,7 @@
 import InfoTab from "./InfoTab";
 import UserBlock from "./UserBlock";
 import "../styles/UserTab.scss";
+import Link from "next/link";
 
 const userTabOptions = [
   "Home",
@@ -17,9 +18,9 @@ export default async function UserTab() {
       <UserBlock />
       <InfoTab heading="Home Tab">
         {userTabOptions.map((option, index) => (
-          <a key={index} href={"/" + option} className="user-tab-option">
+          <Link key={index} href={"/" + option.toLowerCase()} className="user-tab-option">
             {option}
-          </a>
+          </Link>
         ))}
       </InfoTab>
       <a href="/auth/logout" className="logout-btn">

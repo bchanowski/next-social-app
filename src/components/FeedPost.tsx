@@ -1,7 +1,9 @@
 import { PostT } from "@/types/PostT";
-import { UserT } from "@/types/UserT";
 import "../styles/FeedPost.scss";
 import { useEffect, useState } from "react";
+import UserMiniProfile from "./UserMiniProfile";
+import { User } from "@auth0/nextjs-auth0/types";
+import Link from "next/link";
 
 type Props = {
   post: PostT;
@@ -9,7 +11,7 @@ type Props = {
 
 export default function FeedPost({ post }: Props) {
   const postDate = new Date(post.createdAt);
-  const [userData, setUserData] = useState<UserT>({} as UserT);
+  const [userData, setUserData] = useState<User>({} as User);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -40,10 +42,14 @@ export default function FeedPost({ post }: Props) {
           {postDate.getDate()}-{postDate.getMonth()}-{postDate.getFullYear()}
         </p>
       </div>
-      <p className="feed-post-desc">{post.description}</p>
+      <div className="feed-post-desc">{post.description}</div>
       <div className="feed-post-heading-div">
-        <p>{userData?.name || "Loading..."}</p>
-        <p>Show More...</p>
+        <div>
+          {userData ? <UserMiniProfile user={userData} /> : <>Loading...</>}
+        </div>
+        <Link className="show-post-text" href={"/post/" + post._id}>
+          Show Post
+        </Link>
       </div>
     </div>
   );

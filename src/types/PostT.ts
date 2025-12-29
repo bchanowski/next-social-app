@@ -5,6 +5,7 @@ export type PostT = {
   title: string;
   description: string;
   authorId: string;
+  topic: string;
   createdAt: Date;
   updatedAt?: Date;
 };
