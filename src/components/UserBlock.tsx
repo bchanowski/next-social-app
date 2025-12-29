@@ -4,11 +4,11 @@ import Link from "next/link";
 import "../styles/UserBlock.scss";
 import { useUser } from "@auth0/nextjs-auth0";
 import { useEffect, useState } from "react";
-import { User } from "@auth0/nextjs-auth0/types";
+import { UserT } from "@/types/UserT";
 
 export default function UserBlock() {
   const { user } = useUser();
-  const [userData, setUserData] = useState<User>({} as User);
+  const [userData, setUserData] = useState<UserT>({} as UserT);
 
   useEffect(() => {
     if (user?.email) {
@@ -18,7 +18,7 @@ export default function UserBlock() {
     }
   }, [user?.email]);
   return (
-    <Link href="/user" className="user-block-container">
+    <Link href={"/user/" + userData.auth0Id} className="user-block-container">
       {userData?.avatarUrl ? (
         <Image
           src={userData.avatarUrl}

@@ -1,5 +1,5 @@
 "use client";
-import AllPostsList from "@/components/AllPostsList";
+import PostsList from "@/components/PostsList";
 import { useState } from "react";
 import "./home.scss";
 import { useUser } from "@auth0/nextjs-auth0";
@@ -18,7 +18,7 @@ export default function Home() {
 
     setErrors({ title: titleEmpty, desc: descEmpty });
 
-    if (titleEmpty || descEmpty) return; // Stop here if empty
+    if (titleEmpty || descEmpty) return;
     if (user && !user.email_verified) {
       setNeedsVerification(true);
     } else {
@@ -47,7 +47,7 @@ export default function Home() {
           className="add-post-title"
           type="text"
           placeholder="Title"
-          value={title}
+          defaultValue={title}
           onChange={(e) => setTitle(e.target.value)}
         />
         <textarea
@@ -109,7 +109,7 @@ export default function Home() {
       <div className="feed-option-div">
         <p>Home</p>|<p>Explore</p>
       </div>
-      <AllPostsList />
+      <PostsList />
     </div>
   );
 }

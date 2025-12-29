@@ -5,6 +5,8 @@ export type UserT = {
   auth0Id: string;
   email: string;
   name: string;
+  position: string;
+  description: string;
   avatarUrl: string;
   createdAt: Date;
 };

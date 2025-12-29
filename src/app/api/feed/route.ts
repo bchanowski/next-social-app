@@ -19,8 +19,16 @@ export async function GET(req: Request) {
 
   const { searchParams } = new URL(req.url);
   const cursor = searchParams.get("cursor");
+  const authorIdParam = searchParams.get("authorId");
 
   const query: QueryFilter<PostDoc> = {};
+
+  if (authorIdParam) {
+    const decodedId = decodeURIComponent(authorIdParam);
+    const ids = decodedId.split(",");
+
+    query.authorId = ids.length > 1 ? { $in: ids } : ids[0];
+  }
 
   if (cursor && Types.ObjectId.isValid(cursor)) {
     query._id = { $lt: new Types.ObjectId(cursor) };
@@ -32,12 +40,7 @@ export async function GET(req: Request) {
 
   const hasMore = posts.length > PAGE_SIZE;
   const sliced = hasMore ? posts.slice(0, PAGE_SIZE) : posts;
-
   const nextCursor = hasMore ? sliced[sliced.length - 1]._id.toString() : null;
 
-  return NextResponse.json({
-    posts: sliced,
-    hasMore,
-    nextCursor,
-  });
+  return NextResponse.json({ posts: sliced, hasMore, nextCursor });
 }
