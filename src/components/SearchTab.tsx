@@ -19,7 +19,7 @@ export default async function SearchTab() {
       </InfoTab>
       <InfoTab heading="Trending People">
         {popularTopics.map((topic) => (
-          <UserMiniProfile key={topic} user={user} />
+          <UserMiniProfile key={topic} userData={user} />
         ))}
       </InfoTab>
     </div>

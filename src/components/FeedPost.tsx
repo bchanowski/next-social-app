@@ -45,7 +45,7 @@ export default function FeedPost({ post }: Props) {
       <div className="feed-post-desc">{post.description}</div>
       <div className="feed-post-heading-div">
         <div>
-          {userData ? <UserMiniProfile user={userData} /> : <>Loading...</>}
+          {userData ? <UserMiniProfile userData={userData} /> : <>Loading...</>}
         </div>
         <Link className="show-post-text" href={"/post/" + post._id}>
           Show Post

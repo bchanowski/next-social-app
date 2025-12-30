@@ -7,6 +7,7 @@ const UserSchema = new mongoose.Schema({
   avatarUrl: String,
   description: String,
   position: String,
+  subscribedTo: { type: [String], default: [] },
   createdAt: { type: Date, default: Date.now },
 });
 

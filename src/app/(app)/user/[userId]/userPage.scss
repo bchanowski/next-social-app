@@ -2,12 +2,17 @@
 
 .user-page-container {
     display: flex;
-    width: 100%;
-    height: 100svh;
+    flex: 1;
+    min-width: 0; 
     flex-direction: column;
     align-items: center;
-    justify-content: start;
     padding: 20px;
+    overflow-y: auto; 
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
+    &::-webkit-scrollbar {
+        display: none;
+    }
 }
 
 .user-page-info-div {

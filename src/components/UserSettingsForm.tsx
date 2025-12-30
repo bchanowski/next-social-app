@@ -52,9 +52,7 @@ export default function UserSettingsForm() {
 
   return (
     <div className="settings-container">
-      <h2>
-        Settings <p>User Settings</p>
-      </h2>
+      <h2>User Settings</h2>
 
       <form onSubmit={handleSave}>
         <label>

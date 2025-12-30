@@ -16,7 +16,7 @@ export default function UserBlock() {
         .then((res) => res.json())
         .then((data) => setUserData(data));
     }
-  }, [user?.email]);
+  }, [user]);
   return (
     <Link href={"/user/" + userData.auth0Id} className="user-block-container">
       {userData?.avatarUrl ? (

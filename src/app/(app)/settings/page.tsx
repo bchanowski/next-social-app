@@ -9,7 +9,6 @@ export default async function Settings() {
     <div className="settings-container">
       <h2>
         Settings
-        <p>User Settings</p>
         <UserSettingsForm />
         <ResetPassword isSocialUser={isSocialUser} />
       </h2>

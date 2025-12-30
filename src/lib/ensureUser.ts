@@ -18,6 +18,7 @@ export async function ensureUser() {
       email,
       name: session.user.name,
       avatarUrl: session.user.picture,
+      subscribedTo: [auth0Id],
     });
   }
 

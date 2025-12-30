@@ -7,6 +7,7 @@ export type UserT = {
   name: string;
   position: string;
   description: string;
+  subscribedTo: string[];
   avatarUrl: string;
   createdAt: Date;
 };
