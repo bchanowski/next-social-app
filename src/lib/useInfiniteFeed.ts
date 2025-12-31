@@ -1,55 +1,72 @@
-"use client";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { PostT } from "@/types/PostT";
-import { useEffect, useState, useCallback } from "react";
 
-export function useInfiniteFeed(authorId?: string | string[]) {
+export function useInfiniteFeed(authorId?: string, postIds?: string[]) {
   const [posts, setPosts] = useState<PostT[]>([]);
   const [cursor, setCursor] = useState<string | null>(null);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
 
-  const idString = Array.isArray(authorId) ? authorId.join(",") : authorId;
+  const postIdsStr = postIds?.join(",");
+  const currentMode = useRef<"bookmarks" | "profile" | "global">("global");
+
+  if (postIds !== undefined) currentMode.current = "bookmarks";
+  else if (authorId !== undefined) currentMode.current = "profile";
+  else currentMode.current = "global";
+
   useEffect(() => {
     setPosts([]);
     setCursor(null);
     setHasMore(true);
-  }, [idString]);
+    setLoading(false);
+  }, [authorId, postIdsStr]);
 
   const load = useCallback(async () => {
     if (loading || !hasMore) return;
 
+    if (
+      currentMode.current === "profile" &&
+      (!authorId || authorId === "undefined")
+    ) {
+      return;
+    }
+
     setLoading(true);
+
+    const endpoint =
+      currentMode.current === "bookmarks" ? "/api/feed/posts" : "/api/feed";
+    const params = new URLSearchParams();
+
+    if (cursor) params.append("cursor", cursor);
+
+    if (currentMode.current === "bookmarks") {
+      params.append("ids", postIdsStr || "");
+    } else if (currentMode.current === "profile" && authorId) {
+      params.append("authorId", authorId);
+    }
+
     try {
-      const params = new URLSearchParams();
-      if (cursor) params.append("cursor", cursor);
-      if (idString) params.append("authorId", idString);
-      const url = `/api/feed?${params.toString()}`;
-      console.log("Fetching URL:", url);
-      const res = await fetch(url);
+      const res = await fetch(`${endpoint}?${params.toString()}`);
+      if (!res.ok) throw new Error("Fetch failed");
+
       const data = await res.json();
 
-      setPosts((prev) => {
-        if (!cursor) return data.posts;
-
-        const ids = new Set(prev.map((p) => p._id));
-        const unique = data.posts.filter((post: PostT) => !ids.has(post._id));
-        return [...prev, ...unique];
-      });
-
-      setCursor(data.nextCursor);
-      setHasMore(data.hasMore);
-    } catch (error) {
-      console.error("Fetch failed", error);
+      setPosts((prev) => (cursor ? [...prev, ...data.posts] : data.posts));
+      setCursor(data.nextCursor || null);
+      setHasMore(data.hasMore || false);
+    } catch (e) {
+      console.error("Feed load error:", e);
+      setHasMore(false);
     } finally {
       setLoading(false);
     }
-  }, [cursor, hasMore, idString, loading]);
+  }, [cursor, hasMore, loading, authorId, postIdsStr]);
 
   useEffect(() => {
     if (posts.length === 0 && hasMore && !loading) {
       load();
     }
-  }, [load, posts.length, hasMore, loading]);
+  }, [posts.length, hasMore, loading, load]);
 
   return { posts, load, hasMore, loading };
 }

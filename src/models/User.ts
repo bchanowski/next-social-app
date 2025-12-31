@@ -8,6 +8,16 @@ const UserSchema = new mongoose.Schema({
   description: String,
   position: String,
   subscribedTo: { type: [String], default: [] },
+  bookmarkedPosts: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "Post",
+    default: [],
+  },
+  starredPosts: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "Post",
+    default: [],
+  },
   createdAt: { type: Date, default: Date.now },
 });
 

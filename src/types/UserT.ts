@@ -8,6 +8,8 @@ export type UserT = {
   position: string;
   description: string;
   subscribedTo: string[];
+  bookmarkedPosts: ObjectId[];
+  starredPosts: ObjectId[];
   avatarUrl: string;
   createdAt: Date;
 };

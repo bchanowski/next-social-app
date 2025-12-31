@@ -41,7 +41,10 @@ export default function UserPage({
         </div>
       </div>
       <h3>Posts</h3>
-      <PostsList userId={userId} />
+      <PostsList
+        key={`profile-${userData.auth0Id}`}
+        authorId={userData.auth0Id}
+      />
     </div>
   );
 }

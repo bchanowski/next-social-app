@@ -19,6 +19,8 @@ export async function ensureUser() {
       name: session.user.name,
       avatarUrl: session.user.picture,
       subscribedTo: [auth0Id],
+      bookmarkedPosts: [],
+      starredPosts: [],
     });
   }
 

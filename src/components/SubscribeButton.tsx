@@ -1,6 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
 import Loader from "./Loader";
+import Image from "next/image";
+import subscribeIcon from "../../public/subscribe.svg";
+import subscribedIcon from "../../public/subscribed.svg";
 
 export default function SubscribeButton({
   targetId,
@@ -39,12 +42,10 @@ export default function SubscribeButton({
       disabled={loading}
       className={isSubscribed ? "btn-subscribed" : "btn-subscribe"}
     >
-      {loading ? (
-        <Loader size="small" />
-      ) : isSubscribed ? (
-        "Unsubscribe"
+      {isSubscribed ? (
+        <Image src={subscribedIcon} alt="Subscribed" width={24} height={24} />
       ) : (
-        "Subscribe"
+        <Image src={subscribeIcon} alt="Subscribe" width={24} height={24} />
       )}
     </button>
   );

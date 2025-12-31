@@ -15,5 +15,5 @@ export default async function Home() {
       </p>
     );
   }
-  return <PostsList userId={following} />;
+  return <PostsList authorId={following} />;
 }

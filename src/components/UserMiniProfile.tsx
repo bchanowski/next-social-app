@@ -23,10 +23,7 @@ export default function UserMiniProfile({ userData }: Props) {
   }, [userData, user?.sub]);
   return (
     <>
-      <Link
-        className="user-mini-container"
-        href={"/users/" + userData?.nickname}
-      >
+      <Link className="user-mini-container" href={"/user/" + userData?.auth0Id}>
         {userData?.picture || userData?.avatarUrl ? (
           <Image
             alt="User's Avatar"

@@ -6,6 +6,7 @@ const PostSchema = new mongoose.Schema({
   authorId: { type: String, required: true },
   topic: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
+  stars: { type: Number, default: 0 },
   updatedAt: Date,
 });
 

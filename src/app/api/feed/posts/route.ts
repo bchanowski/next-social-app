@@ -16,24 +16,28 @@ export async function GET(req: Request) {
 
     await connectDB();
     const { searchParams } = new URL(req.url);
-    const authorId = searchParams.get("authorId");
+    const idsParam = searchParams.get("ids");
     const cursor = searchParams.get("cursor");
 
-    const query: QueryFilter<PostDoc> = {};
+    if (!idsParam) return NextResponse.json({ posts: [], hasMore: false });
 
-    if (searchParams.has("authorId")) {
-      if (!authorId || authorId === "undefined" || authorId === "") {
-        return NextResponse.json({
-          posts: [],
-          hasMore: false,
-          nextCursor: null,
-        });
-      }
-      query.authorId = authorId;
-    }
+    const validObjectIds = idsParam
+      .split(",")
+      .filter((id) => Types.ObjectId.isValid(id))
+      .map((id) => new Types.ObjectId(id));
+
+    if (validObjectIds.length === 0)
+      return NextResponse.json({ posts: [], hasMore: false });
+
+    const query: QueryFilter<PostDoc> = {
+      _id: { $in: validObjectIds },
+    };
 
     if (cursor && Types.ObjectId.isValid(cursor)) {
-      query._id = { $lt: new Types.ObjectId(cursor) };
+      query._id = {
+        $in: validObjectIds,
+        $lt: new Types.ObjectId(cursor),
+      };
     }
 
     const postsRaw = await Post.find(query)
