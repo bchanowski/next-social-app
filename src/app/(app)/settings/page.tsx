@@ -2,6 +2,7 @@ import ResetPassword from "@/components/ResetPassword";
 import "./settings.scss";
 import UserSettingsForm from "@/components/UserSettingsForm";
 import { auth0 } from "@/lib/auth0";
+import ThemeSwitcher from "@/components/ThemeSwitcher";
 export default async function Settings() {
   const session = await auth0.getSession();
   const isSocialUser = session?.user?.sub?.startsWith("google-oauth2");
@@ -15,9 +16,7 @@ export default async function Settings() {
       <h2>
         Site Settings
         <p>Theme</p>
-        <button>Light</button>
-        <button>Dark</button>
-        <button>System</button>
+        <ThemeSwitcher />
       </h2>
     </div>
   );

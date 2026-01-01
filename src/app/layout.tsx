@@ -9,7 +9,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${raleway.variable} ${archivo.variable}`}>
+    <html
+      lang="en"
+      className={`${raleway.variable} ${archivo.variable}`}
+      suppressHydrationWarning
+    >
       <body>
         <Auth0Provider>
           <ThemeProvider>{children}</ThemeProvider>
