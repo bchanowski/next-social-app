@@ -9,5 +9,5 @@ const PostSchema = new mongoose.Schema({
   stars: { type: Number, default: 0 },
   updatedAt: Date,
 });
-
+PostSchema.index({ authorId: 1 });
 export default mongoose.models.Post || mongoose.model("Post", PostSchema);

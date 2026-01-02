@@ -34,6 +34,7 @@ export default function PostPage({
             new Date(postData.createdAt).getFullYear()}
         </p>
         <p>{postData.description}</p>
+        <p>{postData.topic}</p>
         {postData._id ? (
           <>
             <StarButton postId={String(postData._id)} stars={postData.stars} />

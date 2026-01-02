@@ -17,6 +17,7 @@ export async function GET(req: Request) {
     await connectDB();
     const { searchParams } = new URL(req.url);
     const authorId = searchParams.get("authorId");
+    const topic = searchParams.get("topic");
     const cursor = searchParams.get("cursor");
 
     const query: QueryFilter<PostDoc> = {};
@@ -30,6 +31,10 @@ export async function GET(req: Request) {
         });
       }
       query.authorId = authorId;
+    }
+
+    if (topic && topic !== "") {
+      query.topic = topic;
     }
 
     if (cursor && Types.ObjectId.isValid(cursor)) {

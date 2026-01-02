@@ -1,17 +1,24 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { PostT } from "@/types/PostT";
 
-export function useInfiniteFeed(authorId?: string, postIds?: string[]) {
+export function useInfiniteFeed(
+  authorId?: string,
+  postIds?: string[],
+  topic?: string
+) {
   const [posts, setPosts] = useState<PostT[]>([]);
   const [cursor, setCursor] = useState<string | null>(null);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
 
   const postIdsStr = postIds?.join(",");
-  const currentMode = useRef<"bookmarks" | "profile" | "global">("global");
+  const currentMode = useRef<"bookmarks" | "profile" | "topic" | "global">(
+    "global"
+  );
 
   if (postIds !== undefined) currentMode.current = "bookmarks";
   else if (authorId !== undefined) currentMode.current = "profile";
+  else if (topic !== undefined) currentMode.current = "topic";
   else currentMode.current = "global";
 
   useEffect(() => {
@@ -19,7 +26,7 @@ export function useInfiniteFeed(authorId?: string, postIds?: string[]) {
     setCursor(null);
     setHasMore(true);
     setLoading(false);
-  }, [authorId, postIdsStr]);
+  }, [authorId, postIdsStr, topic]);
 
   const load = useCallback(async () => {
     if (loading || !hasMore) return;
@@ -43,6 +50,8 @@ export function useInfiniteFeed(authorId?: string, postIds?: string[]) {
       params.append("ids", postIdsStr || "");
     } else if (currentMode.current === "profile" && authorId) {
       params.append("authorId", authorId);
+    } else if (currentMode.current === "topic" && topic) {
+      params.append("topic", topic);
     }
 
     try {
@@ -60,7 +69,7 @@ export function useInfiniteFeed(authorId?: string, postIds?: string[]) {
     } finally {
       setLoading(false);
     }
-  }, [cursor, hasMore, loading, authorId, postIdsStr]);
+  }, [cursor, hasMore, loading, authorId, postIdsStr, topic]);
 
   useEffect(() => {
     if (posts.length === 0 && hasMore && !loading) {

@@ -8,7 +8,6 @@ const userTabOptions = [
   "Explore",
   "Notifications",
   "Bookmarks",
-  "Starred",
   "Settings",
 ];
 
@@ -18,7 +17,11 @@ export default async function UserTab() {
       <UserBlock />
       <InfoTab heading="Home Tab">
         {userTabOptions.map((option, index) => (
-          <Link key={index} href={"/" + option.toLowerCase()} className="user-tab-option">
+          <Link
+            key={index}
+            href={"/" + option.toLowerCase()}
+            className="user-tab-option"
+          >
             {option}
           </Link>
         ))}

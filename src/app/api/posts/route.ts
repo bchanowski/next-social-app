@@ -16,7 +16,7 @@ export async function POST(req: Request) {
     );
   }
 
-  const { title, description } = await req.json();
+  const { title, description, topic } = await req.json();
 
   await connectDB();
   await ensureUser();
@@ -25,7 +25,7 @@ export async function POST(req: Request) {
     title,
     description,
     authorId: session.user.sub,
-    topic: "General",
+    topic: topic,
   });
 
   return NextResponse.json(post);

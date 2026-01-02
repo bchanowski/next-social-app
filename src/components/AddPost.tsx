@@ -7,17 +7,35 @@ export default function AddPost() {
   const { user } = useUser();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [topic, setTopic] = useState("");
   const [confirming, setConfirming] = useState(false);
   const [needsVerification, setNeedsVerification] = useState(false);
-  const [errors, setErrors] = useState({ title: false, desc: false });
+  const [errors, setErrors] = useState({
+    title: false,
+    desc: false,
+    topic: false,
+  });
+  const topicOptions = [
+    "General",
+    "React",
+    "Python",
+    "JavaScript",
+    "Java",
+    "AI",
+    "Testing",
+    "C++",
+    "C#",
+    "Nextjs",
+  ];
 
   const handlePostAttempt = () => {
     const titleEmpty = !title.trim();
     const descEmpty = !description.trim();
+    const topicEmpty = !topic.trim();
 
-    setErrors({ title: titleEmpty, desc: descEmpty });
+    setErrors({ title: titleEmpty, desc: descEmpty, topic: topicEmpty });
 
-    if (titleEmpty || descEmpty) return;
+    if (titleEmpty || descEmpty || topicEmpty) return;
     if (user && !user.email_verified) {
       setNeedsVerification(true);
     } else {
@@ -30,11 +48,12 @@ export default function AddPost() {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title, description }),
+      body: JSON.stringify({ title, description, topic }),
     });
     if (res.ok) {
       setTitle("");
       setDescription("");
+      setTopic("");
       setConfirming(false);
     }
   }
@@ -54,6 +73,13 @@ export default function AddPost() {
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
+      <select value={topic} onChange={(e) => setTopic(e.target.value)}>
+        {topicOptions.map((option, index) => (
+          <option key={index} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
       {errors.title && (
         <span className="error-text">Title cannot be empty</span>
       )}

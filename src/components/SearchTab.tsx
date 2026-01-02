@@ -1,26 +1,39 @@
 import InfoTab from "./InfoTab";
 import "../styles/SearchTab.scss";
-import { auth0 } from "@/lib/auth0";
 import UserMiniProfile from "./UserMiniProfile";
-const popularTopics = ["React", "Python", "Nextjs", "C++", "AI"];
+import { getPopularTopics, getTrendingPeople } from "@/lib/db-queries";
+import Link from "next/link";
 
 export default async function SearchTab() {
-  const session = await auth0.getSession();
-  const user = session?.user;
+  const [trendingPeople, popularTopics] = await Promise.all([
+    getTrendingPeople(),
+    getPopularTopics(),
+  ]);
   return (
     <div className="search-tab-container">
       <input type="text" className="search-input" placeholder="Search..." />
       <InfoTab heading="Popular Topics">
-        {popularTopics.map((topic, index) => (
-          <p key={index} className="topic-text">
-            {topic}
-          </p>
-        ))}
+        {popularTopics.length > 0 ? (
+          popularTopics.map((topic: string) => (
+            <Link href={"posts/" + topic} key={topic} className="topic-text">
+              {topic}
+            </Link>
+          ))
+        ) : (
+          <p className="topic-text">No topics found</p>
+        )}
       </InfoTab>
       <InfoTab heading="Trending People">
-        {popularTopics.map((topic) => (
-          <UserMiniProfile key={topic} userData={user} />
-        ))}
+        {trendingPeople.length > 0 ? (
+          trendingPeople.map((user) => (
+            <UserMiniProfile
+              key={user.sub || user._id.toString()}
+              userData={user}
+            />
+          ))
+        ) : (
+          <p>No trending users found.</p>
+        )}
       </InfoTab>
     </div>
   );

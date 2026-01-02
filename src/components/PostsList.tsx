@@ -9,10 +9,19 @@ import "../styles/PostsList.scss";
 interface PostsListProps {
   authorId?: string;
   postIds?: string[];
+  topic?: string;
 }
 
-export default function PostsList({ authorId, postIds }: PostsListProps) {
-  const { posts, load, hasMore, loading } = useInfiniteFeed(authorId, postIds);
+export default function PostsList({
+  authorId,
+  postIds,
+  topic,
+}: PostsListProps) {
+  const { posts, load, hasMore, loading } = useInfiniteFeed(
+    authorId,
+    postIds,
+    topic
+  );
   const loaderRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
