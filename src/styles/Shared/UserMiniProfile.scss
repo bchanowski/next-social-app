@@ -1,0 +1,32 @@
+@use '../themes';
+
+.user-mini-container {
+    display: flex;
+    height: 50px;
+    align-items: center;
+    justify-content: start;
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+    text-decoration: none;
+    color: var(--white);
+    &:hover {
+        background-color: var(--accent);
+        border-radius: 10px;
+    }
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.user-mini-text {
+    font-size: small;
+}
+
+.user-mini-img {
+    margin-right: 15px;
+    border-radius: 40px;
+}
+.user-mini-profile-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}

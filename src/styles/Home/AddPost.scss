@@ -1,0 +1,127 @@
+@use "../themes";
+
+.add-post-container {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    background-color: var(--secondary);
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    border: 0.2px solid var(--accent);
+}
+
+.add-post-title {
+    font-size: larger;
+    background-color: var(--secondary);
+    border: none;
+    color: var(--text);
+    padding: 5px;
+    margin-top: 20px;
+    border: 1px solid var(--primary);
+    &::placeholder {
+        color: var(--accent);
+    }
+}
+
+.add-post-desc {
+    font-size: large;
+    resize: none;
+    height: 50px;
+    background-color: var(--secondary);
+    border-radius: 2px;
+    border: 1px solid var(--primary);
+    border-top: none;
+    color: var(--text);
+    padding: 5px;
+    transition: all 0.2s ease-out;
+    &::placeholder {
+        color: var(--accent);
+    }
+}
+
+.add-post-btn {
+    font-size: medium;
+    border-radius: 5px;
+    border: 1px solid var(--text);
+    color: var(--white);
+    padding: 5px;
+    cursor: pointer;
+    margin-left: auto;
+    width: 20%;
+    margin-top: 10px;
+    background-color: var(--secondary);
+    transition: all 0.5s ease-out;
+    &:hover {
+        color: var(--primary);
+        border: 1px solid var(--primary);
+    }
+}
+
+.modal-container {
+    position: fixed;
+    inset: 0; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.3); 
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px); 
+    z-index: 9999; 
+}
+
+.confirm-modal {
+    background-color: var(--primary);
+    border: 1px solid var(--accent);
+    border-radius: 16px;
+    padding: 40px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+}
+
+.confirm-buttons-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.confirm-btn {
+    background-color: var(--accent);
+    color: var(--text);
+    font-size: large;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+    &:hover {
+        background-color: var(--secondary);
+    }
+}
+
+.cancel-btn {
+    background-color: rgb(190, 2, 2);
+    color: var(--white);
+    font-size: large;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+    &:hover {
+        background-color: rgb(153, 3, 3);
+    }
+}
+
+.error-text {
+    font-size: small;
+    color: rgb(230, 0, 0);
+}
+
+.add-post-select {
+    border: 1px solid var(--primary);
+    border-top:none;
+    background-color: var(--secondary);
+    cursor: pointer;
+    padding-top: 2px;
+}

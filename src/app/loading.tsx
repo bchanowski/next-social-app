@@ -1,4 +1,4 @@
-import Loader from "@/components/Loader";
+import Loader from "@/components/Shared/Loader";
 import "../styles/globals.scss";
 
 export default function GlobalLoading() {

@@ -30,7 +30,13 @@ export async function GET(req: Request) {
           nextCursor: null,
         });
       }
-      query.authorId = authorId;
+
+      if (authorId.includes(",")) {
+        const idsArray = authorId.split(",");
+        query.authorId = { $in: idsArray };
+      } else {
+        query.authorId = authorId;
+      }
     }
 
     if (topic && topic !== "") {

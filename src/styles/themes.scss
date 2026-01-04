@@ -1,9 +1,15 @@
 :root {
-  --bg: #fcfdfd;
+  --bg: #f3f3f3;
   --text: #131313;
+  --primary: #dddbdb;
+  --secondary: #fafaf8;
+  --accent: #c9c8c8;
 }
 
 [data-theme="dark"] {
   --bg: #131313;
   --text: #fcfdfd;
+  --primary: #666666;
+  --secondary: #2c2c2c;
+  --accent: #e6e6e6;
 }

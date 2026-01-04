@@ -1,4 +1,4 @@
-@use "../../styles/variables.scss" as *;
+@use "../../styles/themes.scss" as *;
 
 .home-layout-container {
     display: flex;
@@ -7,8 +7,18 @@
     height: 100vh; 
     overflow: hidden; 
     align-items: stretch;
+  @media (max-width: 1200px) {
+    flex-direction: column; 
+    padding-top: 70px; 
+
+    .user-tab-container,
+    .search-tab-container,
+    .sidebar-line {
+      display: none; 
+    }
+  }
 }
 
 .vertical-line {
-    border-left: 1px solid $accent;
+    border-left: 1px solid var(--accent);
 }

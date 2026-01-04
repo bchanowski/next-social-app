@@ -1,4 +1,4 @@
-import { ThemeProvider } from "@/components/ThemeProvider";
+import { ThemeProvider } from "@/components/Theme/ThemeProvider";
 import "../styles/globals.scss";
 import { Auth0Provider } from "@auth0/nextjs-auth0";
 import { raleway, archivo } from "./fonts";

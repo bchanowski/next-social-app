@@ -1,5 +1,5 @@
-import PostsList from "@/components/PostsList";
-
+import PostsList from "@/components/PostsList/PostsList";
+import "./topic.scss";
 export default async function TopicPage({
   params,
 }: {

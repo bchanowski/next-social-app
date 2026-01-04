@@ -1,0 +1,41 @@
+@use "../../../styles/themes.scss" as *;
+
+.home-page-container {
+    display: flex;
+    flex: 1;
+    min-width: 0; 
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    overflow-y: auto; 
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.feed-option-div {
+    display: flex;
+    width: 70%;
+    font-size: large;
+    justify-content: space-between;
+    align-items: center;
+}
+.feed-option-text {
+    width: 50%;
+    height: 25px;
+    line-height: 25px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s ease-out;
+    text-decoration: none;
+    color: var(--white);
+    &:hover {
+        background-color: var(--accent);
+    }
+}
+
+.feed-option-selected {
+    background-color: var(--accent);
+}

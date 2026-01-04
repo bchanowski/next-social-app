@@ -1,12 +1,13 @@
 "use client";
 
-import PostsList from "@/components/PostsList";
+import PostsList from "@/components/PostsList/PostsList";
 import { UserT } from "@/types/UserT";
 import Image from "next/image";
 import { use, useEffect, useState } from "react";
 import "./userPage.scss";
 import { useUser } from "@auth0/nextjs-auth0";
-import Loader from "@/components/Loader";
+import Loader from "@/components/Shared/Loader";
+import TabSwitcher from "@/components/Shared/TabSwitcher";
 
 export default function UserPage({
   params,
@@ -46,44 +47,33 @@ export default function UserPage({
 
         <div className="user-page-data">
           <p className="user-name">{userData.name}</p>
+
           <p className="user-position">{userData.position || "No position"}</p>
+
           <p className="user-description">
             {userData.description || "No description provided"}
           </p>
         </div>
       </div>
+      <TabSwitcher
+        optionOne="Posts"
+        optionTwo="Starred"
+        activeTab={feedOption}
+        onTabChange={setFeedOption}
+      />
 
-      <div className="feed-toggle-tabs">
-        <p
-          className={feedOption === "Posts" ? "active-tab" : ""}
-          onClick={() => setFeedOption("Posts")}
-        >
-          Posts
-        </p>
-        <span className="divider">|</span>
-        <p
-          className={feedOption === "Starred" ? "active-tab" : ""}
-          onClick={() => setFeedOption("Starred")}
-        >
-          Starred
-        </p>
-      </div>
+      {feedOption === "Posts" ? (
+        <PostsList
+          key={`posts-${userData.auth0Id}`}
+          authorId={userData.auth0Id}
+        />
+      ) : (
+        <PostsList key={`starred-${userData.auth0Id}`} postIds={starIds} />
+      )}
 
-      <div className="user-feed-section">
-        {feedOption === "Posts" ? (
-          <PostsList
-            key={`posts-${userData.auth0Id}`}
-            authorId={userData.auth0Id}
-          />
-        ) : (
-          <PostsList key={`starred-${userData.auth0Id}`} postIds={starIds} />
-        )}
-
-        {/* Handle empty Starred state */}
-        {feedOption === "Starred" && starIds.length === 0 && (
-          <p className="empty-msg">This user hasnt starred any posts yet.</p>
-        )}
-      </div>
+      {feedOption === "Starred" && starIds.length === 0 && (
+        <p className="empty-msg">This user hasnt starred any posts yet.</p>
+      )}
     </div>
   );
 }

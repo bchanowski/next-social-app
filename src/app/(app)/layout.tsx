@@ -1,5 +1,6 @@
-import SearchTab from "@/components/SearchTab";
-import UserTab from "@/components/UserTab";
+import SearchTab from "@/components/SearchTab/SearchTab";
+import UserTab from "@/components/UserTab/UserTab";
+import Navbar from "@/components/Shared/Navbar";
 import { ensureUser } from "@/lib/ensureUser";
 import "./layout.scss";
 
@@ -11,6 +12,7 @@ export default async function HomeLayout({
   await ensureUser();
   return (
     <div className="home-layout-container">
+      <Navbar />
       <UserTab />
       <div className="vertical-line" />
       {children}

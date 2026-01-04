@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { PostT } from "@/types/PostT";
 
 export function useInfiniteFeed(
-  authorId?: string,
+  authorId?: string | string[],
   postIds?: string[],
   topic?: string
 ) {
@@ -10,7 +10,7 @@ export function useInfiniteFeed(
   const [cursor, setCursor] = useState<string | null>(null);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
-
+  const authorIdStr = Array.isArray(authorId) ? authorId.join(",") : authorId;
   const postIdsStr = postIds?.join(",");
   const currentMode = useRef<"bookmarks" | "profile" | "topic" | "global">(
     "global"
@@ -26,14 +26,14 @@ export function useInfiniteFeed(
     setCursor(null);
     setHasMore(true);
     setLoading(false);
-  }, [authorId, postIdsStr, topic]);
+  }, [authorIdStr, postIdsStr, topic]);
 
   const load = useCallback(async () => {
     if (loading || !hasMore) return;
 
     if (
       currentMode.current === "profile" &&
-      (!authorId || authorId === "undefined")
+      (!authorIdStr || authorIdStr === "undefined")
     ) {
       return;
     }
@@ -43,13 +43,12 @@ export function useInfiniteFeed(
     const endpoint =
       currentMode.current === "bookmarks" ? "/api/feed/posts" : "/api/feed";
     const params = new URLSearchParams();
-
     if (cursor) params.append("cursor", cursor);
 
     if (currentMode.current === "bookmarks") {
       params.append("ids", postIdsStr || "");
-    } else if (currentMode.current === "profile" && authorId) {
-      params.append("authorId", authorId);
+    } else if (currentMode.current === "profile" && authorIdStr) {
+      params.append("authorId", authorIdStr);
     } else if (currentMode.current === "topic" && topic) {
       params.append("topic", topic);
     }
@@ -69,7 +68,7 @@ export function useInfiniteFeed(
     } finally {
       setLoading(false);
     }
-  }, [cursor, hasMore, loading, authorId, postIdsStr, topic]);
+  }, [cursor, hasMore, loading, authorIdStr, postIdsStr, topic]);
 
   useEffect(() => {
     if (posts.length === 0 && hasMore && !loading) {

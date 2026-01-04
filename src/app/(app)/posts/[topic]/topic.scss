@@ -1,0 +1,15 @@
+.topic-page-container {
+    display: flex;
+  flex-direction: column;
+  padding: 40px;
+  margin: 0 auto;
+  color: var(--text);
+  width: 100%;
+  max-width: 1200px;
+  overflow-y: auto; 
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}

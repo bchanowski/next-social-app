@@ -1,4 +1,4 @@
-@use "../../../../styles/variables.scss" as *;
+@use "../../../../styles/themes.scss" as *;
 
 .user-page-container {
     display: flex;
@@ -20,7 +20,7 @@
     flex-direction: row;
     align-items: center;
     margin-bottom: 20px;
-    background-color: $secondary;
+    background-color: var(--secondary);
     width: 80%;
     border-radius: 15px;
     padding: 20px;

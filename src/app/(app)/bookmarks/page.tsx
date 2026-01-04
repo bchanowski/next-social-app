@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useUser } from "@auth0/nextjs-auth0";
-import PostsList from "@/components/PostsList";
-import Loader from "@/components/Loader";
+import PostsList from "@/components/PostsList/PostsList";
+import Loader from "@/components/Shared/Loader";
 import { UserT } from "@/types/UserT";
 import "./bookmarks.scss";
 

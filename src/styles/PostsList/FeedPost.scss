@@ -1,0 +1,106 @@
+@use "../themes";
+
+.feed-post-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--secondary);
+  border: 1px solid var(--primary);
+  border-radius: 16px;
+  padding: 28px;
+  width: 100%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.1);
+  }
+
+  .feed-post-header {
+    margin-bottom: 16px;
+
+    .title-area {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+
+      .post-title {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--text);
+        margin: 0;
+      }
+
+      .post-date {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--text);
+        opacity: 0.4;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  .feed-post-body {
+    margin-bottom: 24px;
+
+    .post-description {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--text);
+      opacity: 0.8;
+      
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  }
+
+  .feed-post-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    border-top: 1px solid var(--primary);
+
+    .user-section {
+      flex: 1;
+    }
+
+    .btn-show-post {
+      padding: 8px 20px;
+      background-color: var(--bg);
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+
+      &:hover {
+        background-color: var(--text);
+        color: var(--bg);
+        border-color: var(--text);
+      }
+    }
+  }
+}
+
+.user-loader-placeholder {
+  height: 40px;
+  width: 120px;
+  background: var(--primary);
+  border-radius: 4px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 0.3; }
+  100% { opacity: 0.6; }
+}

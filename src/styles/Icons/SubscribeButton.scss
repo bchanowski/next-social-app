@@ -1,0 +1,22 @@
+@use '../themes';
+
+.sub-btn {
+    background-color: transparent;
+    width: 10%;
+    height: 80%;
+    border: none;
+    cursor: pointer;
+    padding: 2px;
+    margin: 5px;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.sub-icon {
+    padding: 2px;
+    margin: 2px;
+    transition: all 0.2s ease-out;
+    &:hover {
+        padding: 0;
+    }
+}
