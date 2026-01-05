@@ -54,7 +54,17 @@ export default function Navbar() {
         >
           <div className="mobile-menu" onClick={(e) => e.stopPropagation()}>
             <div className="menu-header">
-              <p className="menu-user-name">{user?.name || "User"}</p>
+              {user ? (
+                <Link
+                  href={"/user/" + user.sub}
+                  onClick={() => setIsMenuOpen(false)}
+                  className="menu-user-name"
+                >
+                  <p>{user?.name || "User"}</p>
+                </Link>
+              ) : (
+                <Loader size="small" />
+              )}
             </div>
             <div className="menu-links">
               {navOptions.map((opt) => (

@@ -67,6 +67,11 @@
         color: var(--text);
       }
 
+      .menu-user-name {
+        text-decoration: none;
+        color: var(--text);
+      }
+
       .menu-links {
         display: flex;
         flex-direction: column;

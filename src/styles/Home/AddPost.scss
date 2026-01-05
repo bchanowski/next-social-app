@@ -56,6 +56,9 @@
         color: var(--primary);
         border: 1px solid var(--primary);
     }
+    @media (max-width: 500px) {
+        width: 50%;
+    }
 }
 
 .modal-container {
