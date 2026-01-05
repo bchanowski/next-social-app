@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next Social App Project
 
-## Getting Started
+This project is a Nextjs application, aiming to create a social app that allows user's to create account, post articles, subscibe to other users and star/bookmark other posts, it also uses MongoDB for storing post data and Auth0 for user authentication, used technologies:
+- Nextjs
+- React
+- MongoDB
+- Auth0
+- SCSS
+- Rest API
 
-First, run the development server:
+The site is hosted and fully working right here (Vercel hosting) - [next-social-app-xi.vercel.app](https://next-social-app-xi.vercel.app/) 
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Home
+<img width="1916" height="912" alt="image" src="https://github.com/user-attachments/assets/9ff66fce-ccc8-404e-b265-55821d4c54d4" />
+<img width="568" height="726" alt="image" src="https://github.com/user-attachments/assets/c39d2ca0-3e44-4c36-b6c8-71a12783ec0b" />
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Settings
+<img width="1906" height="910" alt="image" src="https://github.com/user-attachments/assets/b2226a8d-2191-4477-a2ef-abf9e5dc1fc0" />
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### User Page
+<img width="1357" height="796" alt="image" src="https://github.com/user-attachments/assets/342d4d6a-d0e8-4a20-bcb5-0d4ef9ed2e4a" />
+<img width="511" height="740" alt="image" src="https://github.com/user-attachments/assets/c201715b-0c43-4aa7-acdc-fd31159d1712" />
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Bookmarks
+<img width="360" height="631" alt="image" src="https://github.com/user-attachments/assets/6f2ba817-3b3c-403f-bd20-fc00b25c24ee" />
 
-## Learn More
+### Topics
+<img width="1306" height="795" alt="image" src="https://github.com/user-attachments/assets/59a51792-455b-4c08-9109-e17763019bb9" />
 
-To learn more about Next.js, take a look at the following resources:
+### Login
+Login redirects to Auth0
+<img width="1306" height="774" alt="image" src="https://github.com/user-attachments/assets/babed8d3-350c-4c2c-a6b6-334af9979e3e" />
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
